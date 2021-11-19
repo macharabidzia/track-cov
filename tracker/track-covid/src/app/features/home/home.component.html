@@ -1,0 +1,29 @@
+<br />
+<div class="container">
+  <ng-container *ngIf="data as covidData">
+    <div class="fl">
+      <app-card
+        *ngFor="let stat of globalStats"
+        [totalCount]="stat.value"
+        [covidStatus]="stat.status"
+        [color]="stat.color"
+        [date]="stat.date"
+      ></app-card>
+    </div>
+    <br />
+    <h1>Case reports over United States</h1>
+    <h3>Select item from list to display graph</h3>
+    <app-table
+      [clickedRows]="clickedRows"
+      (rowClick)="handleTableRowClick($event)"
+      [displayedColumns]="displayedColumns"
+      [data]="covidData.states"
+    ></app-table>
+    <br />
+    <ng-container *ngIf="clickedRows.size > 0">
+      <app-area-chart [chartData]="chartData"></app-area-chart>
+    </ng-container>
+  </ng-container>
+</div>
+
+<br />
